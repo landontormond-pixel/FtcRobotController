@@ -30,7 +30,6 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /*
  * This file includes a teleop (driver-controlled) file for the Mecanum Drive goBILDA® StarterBot Base
@@ -43,15 +42,15 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class StarterBotMecChassisTeleop extends OpMode {
 
     // Declare OpMode members.
-    private DcMotor leftFrontDrive = null;
-    private DcMotor rightFrontDrive = null;
-    private DcMotor leftBackDrive = null;
-    private DcMotor rightBackDrive = null;
-    private DcMotor intake = null;
-    private DcMotor cannon = null;
-    private CRServo leftIntakeServo = null;
-    private CRServo rightIntakeServo = null;
-    private CRServo launcher = null;
+    private DcMotor LFDrive = null;
+    private DcMotor RFDrive = null;
+    private DcMotor LBDrive = null;
+    private DcMotor RBDrive = null;
+    private DcMotor Intake = null;
+    private DcMotor Cannon = null;
+    private CRServo LIntake = null;
+    private CRServo RIntake = null;
+    private CRServo Launcher = null;
 
     // private Servo flipper = null;
 
@@ -75,15 +74,15 @@ public class StarterBotMecChassisTeleop extends OpMode {
          * to 'get' must correspond to the names assigned during the robot configuration
          * step.
          */
-        leftFrontDrive = hardwareMap.get(DcMotor.class, "FLDrive");
-        rightFrontDrive = hardwareMap.get(DcMotor.class, "FRDrive");
-        leftBackDrive = hardwareMap.get(DcMotor.class, "BLDrive");
-        rightBackDrive = hardwareMap.get(DcMotor.class, "BRDrive");
-        intake = hardwareMap.get(DcMotorEx.class, "Intake");
-        cannon = hardwareMap.get(DcMotorEx.class, "Cannon");
-        leftIntakeServo = hardwareMap.get(CRServo.class, "LIntake");
-        rightIntakeServo = hardwareMap.get(CRServo.class, "RIntake");
-        launcher = hardwareMap.get(CRServo.class, "Launcher");
+        LFDrive = hardwareMap.get(DcMotor.class, "FLDrive");
+        RFDrive = hardwareMap.get(DcMotor.class, "FRDrive");
+        LBDrive = hardwareMap.get(DcMotor.class, "BLDrive");
+        RBDrive = hardwareMap.get(DcMotor.class, "BRDrive");
+        Intake = hardwareMap.get(DcMotorEx.class, "Intake");
+        Cannon = hardwareMap.get(DcMotorEx.class, "Cannon");
+        LIntake = hardwareMap.get(CRServo.class, "LIntake");
+        RIntake = hardwareMap.get(CRServo.class, "RIntake");
+        Launcher = hardwareMap.get(CRServo.class, "Launcher");
         // flipper = hardwareMap.get(Servo.class, "Flipper");
 
         // flipper.setPosition(0);
@@ -96,33 +95,33 @@ public class StarterBotMecChassisTeleop extends OpMode {
          * Note: The settings here assume direct drive on left and right wheels. Gear
          * Reduction or 90 Deg drives may require direction flips
          */
-        leftFrontDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightFrontDrive.setDirection(DcMotor.Direction.FORWARD);
-        leftBackDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightBackDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        LFDrive.setDirection(DcMotor.Direction.REVERSE);
+        RFDrive.setDirection(DcMotor.Direction.FORWARD);
+        LBDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+        RBDrive.setDirection(DcMotorSimple.Direction.FORWARD);
 
         /*
          * Setting zeroPowerBehavior to BRAKE enables a "brake mode". This causes the motor to
          * slow down much faster when it is coasting. This creates a much more controllable
          * drivetrain. As the robot stops much quicker.
          */
-        leftFrontDrive.setZeroPowerBehavior(BRAKE);
-        rightFrontDrive.setZeroPowerBehavior(BRAKE);
-        leftBackDrive.setZeroPowerBehavior(BRAKE);
-        rightBackDrive.setZeroPowerBehavior(BRAKE);
-        intake.setZeroPowerBehavior(BRAKE);
+        LFDrive.setZeroPowerBehavior(BRAKE);
+        RFDrive.setZeroPowerBehavior(BRAKE);
+        LBDrive.setZeroPowerBehavior(BRAKE);
+        RBDrive.setZeroPowerBehavior(BRAKE);
+        Intake.setZeroPowerBehavior(BRAKE);
 
         /*
          * set Feeders to an initial value to initialize the servo controller
          */
-        leftIntakeServo.setPower(0);
-        rightIntakeServo.setPower(0);
+        LIntake.setPower(0);
+        RIntake.setPower(0);
 
         /*
          * Much like our drivetrain motors, we set the right intake servo to reverse so that both
          * servos work to pull elements into the intake.
          */
-        rightIntakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
+        RIntake.setDirection(DcMotorSimple.Direction.REVERSE);
 
         /*
          * Tell the driver that initialization is complete.
@@ -160,7 +159,7 @@ public class StarterBotMecChassisTeleop extends OpMode {
          * we invert it before passing it to the function.
          */
         mecanumDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
-        launcher.setPower(gamepad1.right_trigger);
+        Launcher.setPower(gamepad1.right_trigger);
 
         /*
          * Set the intake power variable to equal the right trigger, minus the left trigger.
@@ -183,10 +182,10 @@ public class StarterBotMecChassisTeleop extends OpMode {
         // Direct mapping: true -> 1, false -> 0
         // flipper.setPosition(gamepad1.a ? 1 : 0);
 
-        intake.setPower(intakePower);
-        leftIntakeServo.setPower(intakePower);
-        rightIntakeServo.setPower(intakePower);
-        cannon.setPower(gamepad1.left_trigger);
+        Intake.setPower(intakePower);
+        LIntake.setPower(intakePower);
+        RIntake.setPower(intakePower);
+        Cannon.setPower(gamepad1.left_trigger);
 
         /*
          * Show motor powers on the Driver Station via telemetry.
@@ -216,10 +215,10 @@ public class StarterBotMecChassisTeleop extends OpMode {
         leftBackPower = (forward - strafe + rotate) / denominator;
         rightBackPower = (forward + strafe - rotate) / denominator;
 
-        leftFrontDrive.setPower(leftFrontPower);
-        rightFrontDrive.setPower(rightFrontPower);
-        leftBackDrive.setPower(leftBackPower);
-        rightBackDrive.setPower(rightBackPower);
+        LFDrive.setPower(leftFrontPower);
+        RFDrive.setPower(rightFrontPower);
+        LBDrive.setPower(leftBackPower);
+        RBDrive.setPower(rightBackPower);
 
     }
 }
