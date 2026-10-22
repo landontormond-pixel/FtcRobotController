@@ -63,6 +63,8 @@ public class StarterBotMecChassisTeleop extends OpMode {
     // Create a variable to set to the intake.
     double intakePower;
 
+    double CannonPower = 0.6;
+
     /*
      * Code to run ONCE when the driver hits INIT
      */
@@ -176,24 +178,27 @@ public class StarterBotMecChassisTeleop extends OpMode {
 
         // Direct mapping: true -> 1, false -> 0
         // flipper.setPosition(gamepad1.a ? 1 : 0);
-        if (gamepad1.right_bumper) {
-            intakePower = 1;
+        if (gamepad1.x) {
+            intakePower = -1;
         } else {
-            intakePower = 0;
+            intakePower = 1;
+        }
+
+        if (gamepad1.left_bumper) {
+            CannonPower -= 0.1;
+        } else if (gamepad1.right_bumper) {
+            CannonPower += 0.1;
+        }
+        if (CannonPower > 1) {
+            CannonPower = 1;
+        } else if (CannonPower < 0) {
+            CannonPower = 0;
         }
         Intake.setPower(intakePower);
-        // Test each continuous-rotation servo independently.
         LIntake.setPower(intakePower);
         RIntake.setPower(intakePower);
         Launcher.setPower(gamepad1.right_trigger);
-        Cannon.setPower(gamepad1.left_trigger);
-
-        /*
-         * Show motor powers on the Driver Station via telemetry.
-         */
-        telemetry.addData("Motors", "FL (%.2f), FR (%.2f), BL(%.2f), BR(%.2f)",
-                leftFrontPower, rightFrontPower, leftBackPower, rightBackPower);
-        telemetry.addData("Triggers", "left (%.2f), right (%.2f)",gamepad1.left_trigger, gamepad1.right_trigger);
+        Cannon.setPower(CannonPower);
     }
 
     /*
