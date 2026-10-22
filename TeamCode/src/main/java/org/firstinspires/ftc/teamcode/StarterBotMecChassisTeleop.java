@@ -99,6 +99,7 @@ public class StarterBotMecChassisTeleop extends OpMode {
         RFDrive.setDirection(DcMotor.Direction.FORWARD);
         LBDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         RBDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        Launcher.setDirection(DcMotorSimple.Direction.REVERSE);
 
         /*
          * Setting zeroPowerBehavior to BRAKE enables a "brake mode". This causes the motor to
@@ -159,7 +160,6 @@ public class StarterBotMecChassisTeleop extends OpMode {
          * we invert it before passing it to the function.
          */
         mecanumDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
-        Launcher.setPower(gamepad1.right_trigger);
 
         /*
          * Set the intake power variable to equal the right trigger, minus the left trigger.
@@ -173,18 +173,19 @@ public class StarterBotMecChassisTeleop extends OpMode {
          * allow us to avoid setting the same motors/servos power more than once per loop. That can
          * create erratic behavior.
          */
-        if(gamepad1.b) {
-            intakePower = -1;
-        } else {
-            intakePower = 1;
-        }
 
         // Direct mapping: true -> 1, false -> 0
         // flipper.setPosition(gamepad1.a ? 1 : 0);
-
+        if (gamepad1.right_bumper) {
+            intakePower = 1;
+        } else {
+            intakePower = 0;
+        }
         Intake.setPower(intakePower);
+        // Test each continuous-rotation servo independently.
         LIntake.setPower(intakePower);
         RIntake.setPower(intakePower);
+        Launcher.setPower(gamepad1.right_trigger);
         Cannon.setPower(gamepad1.left_trigger);
 
         /*
