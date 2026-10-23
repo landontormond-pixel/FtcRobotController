@@ -76,10 +76,10 @@ public class StarterBotMecChassisTeleop extends OpMode {
          * to 'get' must correspond to the names assigned during the robot configuration
          * step.
          */
-        LFDrive = hardwareMap.get(DcMotor.class, "FLDrive");
-        RFDrive = hardwareMap.get(DcMotor.class, "FRDrive");
-        LBDrive = hardwareMap.get(DcMotor.class, "BLDrive");
-        RBDrive = hardwareMap.get(DcMotor.class, "BRDrive");
+        LFDrive = hardwareMap.get(DcMotorEx.class, "FLDrive");
+        RFDrive = hardwareMap.get(DcMotorEx.class, "FRDrive");
+        LBDrive = hardwareMap.get(DcMotorEx.class, "BLDrive");
+        RBDrive = hardwareMap.get(DcMotorEx.class, "BRDrive");
         Intake = hardwareMap.get(DcMotorEx.class, "Intake");
         Cannon = hardwareMap.get(DcMotorEx.class, "Cannon");
         LIntake = hardwareMap.get(CRServo.class, "LIntake");
@@ -97,10 +97,10 @@ public class StarterBotMecChassisTeleop extends OpMode {
          * Note: The settings here assume direct drive on left and right wheels. Gear
          * Reduction or 90 Deg drives may require direction flips
          */
-        LFDrive.setDirection(DcMotor.Direction.REVERSE);
-        RFDrive.setDirection(DcMotor.Direction.FORWARD);
-        LBDrive.setDirection(DcMotorSimple.Direction.REVERSE);
-        RBDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        LFDrive.setDirection(DcMotorEx.Direction.REVERSE);
+        RFDrive.setDirection(DcMotorEx.Direction.FORWARD);
+        LBDrive.setDirection(DcMotorEx.Direction.REVERSE);
+        RBDrive.setDirection(DcMotorEx.Direction.FORWARD);
         Launcher.setDirection(DcMotorSimple.Direction.REVERSE);
 
         /*
