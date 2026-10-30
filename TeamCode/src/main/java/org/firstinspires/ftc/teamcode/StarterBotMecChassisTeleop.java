@@ -184,9 +184,9 @@ public class StarterBotMecChassisTeleop extends OpMode {
             intakePower = 1;
         }
 
-        if (gamepad1.left_bumper) {
+        if (gamepad1.leftBumperWasPressed()) {
             CannonPower -= 0.1;
-        } else if (gamepad1.right_bumper) {
+        } else if (gamepad1.rightBumperWasPressed()) {
             CannonPower += 0.1;
         }
         if (CannonPower > 1) {
@@ -199,7 +199,10 @@ public class StarterBotMecChassisTeleop extends OpMode {
         RIntake.setPower(intakePower);
         Launcher.setPower(gamepad1.right_trigger);
         Cannon.setPower(CannonPower);
+
+        telemetry.addData("Launch Speed", CannonPower);
     }
+
 
     /*
      * Code to run ONCE after the driver hits STOP
