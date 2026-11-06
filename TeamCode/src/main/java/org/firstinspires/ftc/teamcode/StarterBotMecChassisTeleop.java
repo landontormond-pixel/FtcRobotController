@@ -47,7 +47,7 @@ public class StarterBotMecChassisTeleop extends OpMode {
     private DcMotor LBDrive = null;
     private DcMotor RBDrive = null;
     private DcMotor Intake = null;
-    private DcMotor Cannon = null;
+    private DcMotorEx Cannon = null;
     private CRServo LIntake = null;
     private CRServo RIntake = null;
     private CRServo Launcher = null;
@@ -88,6 +88,8 @@ public class StarterBotMecChassisTeleop extends OpMode {
         // flipper = hardwareMap.get(Servo.class, "Flipper");
 
         // flipper.setPosition(0);
+
+        Cannon.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         /*
@@ -191,16 +193,17 @@ public class StarterBotMecChassisTeleop extends OpMode {
         }
         if (CannonPower > 1) {
             CannonPower = 1;
-        } else if (CannonPower < 0) {
-            CannonPower = 0;
+        } else if (CannonPower < 0.5) {
+            CannonPower = 0.5;
         }
         Intake.setPower(intakePower);
         LIntake.setPower(intakePower);
         RIntake.setPower(intakePower);
         Launcher.setPower(gamepad1.right_trigger);
-        Cannon.setPower(CannonPower);
+        Cannon.setVelocity(CannonPower);
 
         telemetry.addData("Launch Speed", CannonPower);
+        telemetry.addData("Actual Velocity", Cannon.getVelocity());
     }
 
 
