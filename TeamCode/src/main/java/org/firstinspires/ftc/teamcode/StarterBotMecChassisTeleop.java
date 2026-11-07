@@ -63,7 +63,8 @@ public class StarterBotMecChassisTeleop extends OpMode {
     // Create a variable to set to the intake.
     double intakePower;
 
-    double CannonPower = 0.6;
+    double CannonVelocity = 1000;
+
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -187,23 +188,27 @@ public class StarterBotMecChassisTeleop extends OpMode {
         }
 
         if (gamepad1.leftBumperWasPressed()) {
-            CannonPower -= 0.1;
+            CannonVelocity -= 100;
         } else if (gamepad1.rightBumperWasPressed()) {
-            CannonPower += 0.1;
+            CannonVelocity += 100;
         }
-        if (CannonPower > 1) {
-            CannonPower = 1;
-        } else if (CannonPower < 0.5) {
-            CannonPower = 0.5;
+
+        // Limit velocity
+        if (CannonVelocity > 3000) {
+            CannonVelocity = 3000;
+        } else if (CannonVelocity < 1000) {
+            CannonVelocity = 1000;
         }
+
         Intake.setPower(intakePower);
         LIntake.setPower(intakePower);
         RIntake.setPower(intakePower);
         Launcher.setPower(gamepad1.right_trigger);
-        Cannon.setVelocity(CannonPower);
+        Cannon.setVelocity(CannonVelocity);
 
-        telemetry.addData("Launch Speed", CannonPower);
+        telemetry.addData("Target Velocity", CannonVelocity);
         telemetry.addData("Actual Velocity", Cannon.getVelocity());
+        telemetry.update();
     }
 
 
