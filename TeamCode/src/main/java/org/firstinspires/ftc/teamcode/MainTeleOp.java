@@ -37,9 +37,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * robot mobility, one motor driving an intake roller, and two servos which pull elements out of corners.
  */
 
-@TeleOp(name = "StarterBot Mecanum Chassis Teleop", group = "StarterBot")
-//@Disabled
-public class StarterBotMecChassisTeleop extends OpMode {
+@TeleOp(name = "Main TeleOp")
+public class MainTeleOp extends OpMode {
 
     // Declare OpMode members.
     private DcMotor LFDrive = null;
@@ -154,30 +153,8 @@ public class StarterBotMecChassisTeleop extends OpMode {
      */
     @Override
     public void loop() {
-        /*
-         * Here we call a function called mecanumDrive. The mecanumDrive function takes the input from
-         * the joysticks, and applies power to the drive motors to move the robot as requested
-         * by the driver. Moving the left joystick forwards/back moves all motors forwards/back,
-         * moving the right joystick left/right rotates the robot clockwise or counterclockwise,
-         * and moving the left joystick left moves the motors in the right way to create a sideways
-         * "strafe" movement. Combinations of these inputs can be used to create more complex maneuvers.
-         * Note, moving the joystick forward on most gamepads results in a negative signal, so
-         * we invert it before passing it to the function.
-         */
-        mecanumDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
-        /*
-         * Set the intake power variable to equal the right trigger, minus the left trigger.
-         * Each trigger outputs a signal from 0-1, with 0 as fully released, and 1 fully depressed.
-         * This gives us proportional control of the intake speed. The speed increases as we pull
-         * the right trigger further. It's occasionally helpful to be able to reverse the intake,
-         * so we also factor in the  left trigger. If the left trigger is fully depressed,
-         * the intakePower variable will be -1. If the right trigger is fully depressed, the variable
-         * will be 1. If the driver pulls both triggers, the intake will remain off.
-         * We use this technique (creating a variable, and setting it to our control inputs) to
-         * allow us to avoid setting the same motors/servos power more than once per loop. That can
-         * create erratic behavior.
-         */
+        mecanumDrive(-gamepad1.left_stick_y, gamepad1.left_stick_x, gamepad1.right_stick_x);
 
         // Direct mapping: true -> 1, false -> 0
         // flipper.setPosition(gamepad1.a ? 1 : 0);
