@@ -34,27 +34,27 @@ public class RedFarPark extends LinearOpMode {
 
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
-    private final Pose start = poseFactory.of(46.8441, 8.6243, 90);
-    private final Pose startLaunch1 = poseFactory.of(58.1607, 8.8438, 90);
-    private final Pose launch1PickupStart = poseFactory.of(58.1607, 8.8438, 90);
-    private final Pose launch1Pickup = poseFactory.of(10.4203, 31.735, -90);
-    private final Pose pickupCollectStart = poseFactory.of(10.4203, 31.735, -90);
-    private final Pose pickupCollect = poseFactory.of(9.5036, 11.0038, -90);
-    private final Pose collectLaunch2Start = poseFactory.of(9.5036, 11.0038, -90);
-    private final Pose collectLaunch2 = poseFactory.of(58.6802, 129.01, -90);
-    private final Pose collectLaunch2Control1 = poseFactory.of(18.5805, 31.9522, 0);
-    private final Pose collectLaunch2Control2 = poseFactory.of(50.5146, 55.954, 0);
-    private final Pose collectLaunch2Control3 = poseFactory.of(0, 64.7634, 0);
-    private final Pose launch2Pickup2Start = poseFactory.of(58.6802, 129.01, -90);
-    private final Pose launch2Pickup2 = poseFactory.of(45.5767, 109.1704, 90);
-    private final Pose pickup2Collect2Start = poseFactory.of(45.5767, 109.1704, 90);
-    private final Pose pickup2Collect2 = poseFactory.of(46.3025, 126.7928, 90);
-    private final Pose collect2Launch3Start = poseFactory.of(46.3025, 126.7928, 90);
-    private final Pose collect2Launch3 = poseFactory.of(58.68, 129.01, -90);
-    private final Pose collect2Launch3Control1 = poseFactory.of(53.4578, 105.8963, 0);
-    private final Pose launch3ParkStart = poseFactory.of(58.68, 129.01, -90);
-    private final Pose launch3Park = poseFactory.of(13.7448, 91.4211, 0);
-    private final Pose launch3ParkControl1 = poseFactory.of(15.912, 80.019, 0);
+    private final Pose start = poseFactory.of(46.8441, 8.6243, -90);
+    private final Pose startLaunch1 = poseFactory.of(58.15, 8.84, -90);
+    private final Pose launch1PickupStart = poseFactory.of(58.15, 8.84, -90);
+    private final Pose launch1Pickup = poseFactory.of(10.4203, 31.74, -90);
+    private final Pose pickupCollectStart = poseFactory.of(10.4203, 31.74, -90);
+    private final Pose pickupCollect = poseFactory.of(9.5036, 11, -90);
+    private final Pose collectLaunch2Start = poseFactory.of(9.5036, 11, -90);
+    private final Pose collectLaunch2 = poseFactory.of(58.6802, 129.01, 90);
+    private final Pose collectLaunch2Control1 = poseFactory.of(18.5805, 31.95, 0);
+    private final Pose collectLaunch2Control2 = poseFactory.of(50.5146, 55.95, 0);
+    private final Pose collectLaunch2Control3 = poseFactory.of(1.75, 93.75, 0);
+    private final Pose launch2Pickup2Start = poseFactory.of(58.6802, 129.01, 90);
+    private final Pose launch2Pickup2 = poseFactory.of(45.5767, 109.17, 90);
+    private final Pose pickup2Collect2Start = poseFactory.of(45.5767, 109.17, 90);
+    private final Pose pickup2Collect2 = poseFactory.of(46.3025, 126.79, 90);
+    private final Pose collect2Launch3Start = poseFactory.of(46.3025, 126.79, 90);
+    private final Pose collect2Launch3 = poseFactory.of(58.68, 129.01, 90);
+    private final Pose collect2Launch3Control1 = poseFactory.of(53.4578, 105.9, 0);
+    private final Pose launch3ParkStart = poseFactory.of(58.68, 129.01, 90);
+    private final Pose launch3Park = poseFactory.of(13.7448, 91.42, 0);
+    private final Pose launch3ParkControl1 = poseFactory.of(15.912, 80.02, 0);
 
     // Autonomous routine
     public Command autoRoutine() {

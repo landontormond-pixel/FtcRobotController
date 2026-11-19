@@ -33,20 +33,12 @@ public class BlueClosePark extends LinearOpMode {
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
     private final Pose start = poseFactory.of(118.75, 7.75, 90);
-    private final Pose startLaunch1 = poseFactory.of(79.75, 10.75, 95);
-    private final Pose startLaunch1Control1 = poseFactory.of(94.75, 20.75, 0);
-    private final Pose launch1ParkStart = poseFactory.of(79.75, 10.75, 100);
-    private final Pose launch1Park = poseFactory.of(127.75, 23.75, 180);
-    private final Pose launch1ParkControl1 = poseFactory.of(94.75, 20.75, 0);
+    private final Pose park = poseFactory.of(127.75, 20.75, 180);
 
     // Autonomous routine
     public Command autoRoutine() {
         return sequential(
-                follow(follower, startLaunch1()),
-
-                launchBalls(1.0, 3.0),
-
-                follow(follower, launch1Park())
+                follow(follower, startPark())
         );
     }
 
@@ -96,11 +88,7 @@ public class BlueClosePark extends LinearOpMode {
                 .requiring(Launcher);
     }
 
-    public Path startLaunch1() {
-        return Paths.curve(start, startLaunch1Control1, startLaunch1).linear(start, startLaunch1);
-    }
-
-    public Path launch1Park() {
-        return Paths.curve(launch1ParkStart, launch1ParkControl1, launch1Park).linear(launch1ParkStart, launch1Park);
+    public Path startPark() {
+        return Paths.curve(start, park).linear(start, park);
     }
 }
