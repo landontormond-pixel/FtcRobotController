@@ -91,9 +91,6 @@ public class MainTeleOp extends OpMode {
         Launcher = hardwareMap.get(CRServo.class, "Launcher");
         Flipper = hardwareMap.get(Servo.class, "Flipper");
 
-        Flipper.setPosition(0);
-        Flipper.setDirection(Servo.Direction.REVERSE);
-
         Cannon.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
@@ -144,6 +141,7 @@ public class MainTeleOp extends OpMode {
      */
     @Override
     public void init_loop() {
+
     }
 
     /*
@@ -151,6 +149,7 @@ public class MainTeleOp extends OpMode {
      */
     @Override
     public void start() {
+        Flipper.setPosition(0);
     }
 
     /*
@@ -168,19 +167,17 @@ public class MainTeleOp extends OpMode {
         } else {
             intakePower = 1;
         }
+
+        // toggle the flipper
         boolean currentButtonState = gamepad1.b;
 
         if (currentButtonState && !flipperLastButtonState) {
             flipperToggleState = !flipperToggleState;
-
-            if (flipperToggleState) {
-                Flipper.setPosition(1.0);
-            } else {
-                Flipper.setPosition(0.0);
-            }
+            Flipper.setPosition(flipperToggleState ? 0.43 : 0.0);
         }
 
         flipperLastButtonState = currentButtonState;
+        // end of toggle the flipper
 
         if (gamepad1.leftBumperWasPressed()) {
             CannonVelocity -= 100;
@@ -198,11 +195,17 @@ public class MainTeleOp extends OpMode {
         Intake.setPower(intakePower);
         LIntake.setPower(intakePower);
         RIntake.setPower(intakePower);
-        Launcher.setPower(gamepad1.right_trigger);
+        Launcher.setPower(gamepad1.right_trigger - gamepad1.left_trigger);
         Cannon.setVelocity(CannonVelocity);
 
         telemetry.addData("Target Velocity", CannonVelocity);
         telemetry.addData("Actual Velocity", Cannon.getVelocity());
+        telemetry.addData("LF", leftFrontPower);
+        telemetry.addData("RF", rightFrontPower);
+        telemetry.addData("LB", leftBackPower);
+        telemetry.addData("RB", rightBackPower);
+        telemetry.addData("Flipper", Flipper.getPosition());
+        telemetry.addData("Intake", intakePower);
         telemetry.update();
     }
 
@@ -212,6 +215,17 @@ public class MainTeleOp extends OpMode {
      */
     @Override
     public void stop() {
+        LFDrive.setPower(0);
+        RFDrive.setPower(0);
+        LBDrive.setPower(0);
+        RBDrive.setPower(0);
+
+        Intake.setPower(0);
+        Cannon.setPower(0);
+
+        LIntake.setPower(0);
+        RIntake.setPower(0);
+        Launcher.setPower(0);
     }
 
     void mecanumDrive(double forward, double strafe, double rotate){
