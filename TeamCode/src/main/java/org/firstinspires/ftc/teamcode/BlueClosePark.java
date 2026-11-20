@@ -89,6 +89,6 @@ public class BlueClosePark extends LinearOpMode {
     }
 
     public Path startPark() {
-        return Paths.curve(start, park).linear(start, park);
+        return Paths.line(start, park).linear(start, park);
     }
 }

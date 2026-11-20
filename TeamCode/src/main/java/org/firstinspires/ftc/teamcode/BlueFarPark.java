@@ -16,6 +16,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.pedro.Constants;
@@ -89,6 +90,8 @@ public class BlueFarPark extends LinearOpMode {
         Cannon = hardwareMap.get(DcMotorEx.class, "Cannon");
         Intake = hardwareMap.get(DcMotor.class, "Intake");
         Launcher = hardwareMap.get(CRServo.class, "Launcher");
+
+        Launcher.setDirection(CRServo.Direction.REVERSE);
 
         Scheduler.reset();
         follower = Constants.create(hardwareMap);

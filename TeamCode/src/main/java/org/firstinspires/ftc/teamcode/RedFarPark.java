@@ -92,6 +92,8 @@ public class RedFarPark extends LinearOpMode {
         Intake = hardwareMap.get(DcMotor.class, "Intake");
         Launcher = hardwareMap.get(CRServo.class, "Launcher");
 
+        Launcher.setDirection(CRServo.Direction.REVERSE);
+
         Scheduler.reset();
         follower = Constants.create(hardwareMap);
         follower.setPose(start);

@@ -30,6 +30,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /*
  * This file includes a teleop (driver-controlled) file for the Mecanum Drive goBILDA® StarterBot Base
@@ -51,7 +52,7 @@ public class MainTeleOp extends OpMode {
     private CRServo RIntake = null;
     private CRServo Launcher = null;
 
-    // private Servo flipper = null;
+    private Servo Flipper = null;
 
     // Set up a variable for each drive wheel to save power level for telemetry.
     double leftFrontPower;
@@ -62,7 +63,10 @@ public class MainTeleOp extends OpMode {
     // Create a variable to set to the intake.
     double intakePower;
 
-    double CannonVelocity = 1000;
+    double CannonVelocity = 2000;
+
+    boolean flipperToggleState = false; // false = position 0, true = position 1
+    boolean flipperLastButtonState = false; // tracks previous B button state
 
 
     /*
@@ -85,9 +89,10 @@ public class MainTeleOp extends OpMode {
         LIntake = hardwareMap.get(CRServo.class, "LIntake");
         RIntake = hardwareMap.get(CRServo.class, "RIntake");
         Launcher = hardwareMap.get(CRServo.class, "Launcher");
-        // flipper = hardwareMap.get(Servo.class, "Flipper");
+        Flipper = hardwareMap.get(Servo.class, "Flipper");
 
-        // flipper.setPosition(0);
+        Flipper.setPosition(0);
+        Flipper.setDirection(Servo.Direction.REVERSE);
 
         Cannon.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -163,6 +168,19 @@ public class MainTeleOp extends OpMode {
         } else {
             intakePower = 1;
         }
+        boolean currentButtonState = gamepad1.b;
+
+        if (currentButtonState && !flipperLastButtonState) {
+            flipperToggleState = !flipperToggleState;
+
+            if (flipperToggleState) {
+                Flipper.setPosition(1.0);
+            } else {
+                Flipper.setPosition(0.0);
+            }
+        }
+
+        flipperLastButtonState = currentButtonState;
 
         if (gamepad1.leftBumperWasPressed()) {
             CannonVelocity -= 100;
