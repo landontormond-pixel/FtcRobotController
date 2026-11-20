@@ -20,7 +20,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.pedro.Constants;
 
-@Autonomous(name = "Red Far Park", group = "Autonomous")
+@Autonomous(name = "Blue Far Park", group = "Autonomous")
 public class BlueFarPark extends LinearOpMode {
 
     private DcMotorEx Cannon;
