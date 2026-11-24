@@ -63,7 +63,7 @@ public class MainTeleOp extends OpMode {
     // Create a variable to set to the intake.
     double intakePower;
 
-    double CannonVelocity = 2000;
+    double CannonVelocity = 1300;
 
     boolean flipperToggleState = false; // false = position 0, true = position 1
     boolean flipperLastButtonState = false; // tracks previous B button state
@@ -186,8 +186,8 @@ public class MainTeleOp extends OpMode {
         }
 
         // Limit velocity
-        if (CannonVelocity > 3000) {
-            CannonVelocity = 3000;
+        if (CannonVelocity > 2500) {
+            CannonVelocity = 2500;
         } else if (CannonVelocity < 1000) {
             CannonVelocity = 1000;
         }
